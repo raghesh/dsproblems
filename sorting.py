@@ -156,7 +156,7 @@ class QuickSort(Sorting):
         ElementIndex = List.index(Element)
         List[ElementIndex], List[GreatestElementIndex] = \
         List[GreatestElementIndex], List[ElementIndex]
-        # Swap current element and pivot element
+        # Swap current element and pivot element.
         List[GreatestElementIndex], List[PivotIndex] = \
         List[PivotIndex], List[GreatestElementIndex]
         PivotIndex = GreatestElementIndex
@@ -165,7 +165,7 @@ class QuickSort(Sorting):
     return PivotIndex
 
   def QSort(self, List):
-    if len(List) == 1:
+    if len(List) <= 1:
       return List
     # Pivot is the index of pivot element.
     PivotIndex = self.ChoosePivot(List)
