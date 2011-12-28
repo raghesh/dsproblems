@@ -4,7 +4,7 @@ class Sorting:
   """
 
   def __init__(self):
-    self.sortedList = []
+    self.SortedList = []
 
   def plotComplexityGraph(self):
     """Plot graph to compare complexities of all algorithms for same value of N.
@@ -22,7 +22,7 @@ class InsertSort(Sorting):
   """
 
   def __init__(self):
-    self.sortedList = []
+    self.SortedList = []
 
   def Sort(self, List):
     for I in range(1, len(List)):
@@ -33,8 +33,8 @@ class InsertSort(Sorting):
         J = J - 1
       List[J+1] = Key
 
-    self.sortedList = List
-    return self.sortedList
+    self.SortedList = List
+    return self.SortedList
   
   def getComplexity(self, N):
     """Gets the time complexity of specified algorithm.
@@ -45,11 +45,11 @@ class BubbleSort(Sorting):
   """
 
   def __init__(self):
-    self.sortedList = []
+    self.SortedList = []
 
   def Sort(self, List):
-    self.sortedList = List
-    return self.sortedList
+    self.SortedList = List
+    return self.SortedList
   
   def getComplexity(self, N):
     """Gets the time complexity of specified algorithm.
