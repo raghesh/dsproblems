@@ -29,9 +29,9 @@ class InsertSort(Sorting):
       Key = List[I]
       J = I - 1
       while J >= 0 and Key < List[J]:
-        List[J+1] = List[J]
+        List[J + 1] = List[J]
         J = J - 1
-      List[J+1] = Key
+      List[J + 1] = Key
 
     self.SortedList = List
     return self.SortedList
