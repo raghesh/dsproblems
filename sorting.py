@@ -41,13 +41,28 @@ class InsertSort(Sorting):
     """
 
 class BubbleSort(Sorting):
-  """Describe the logic of bubble sort here.
+  """Starting from the first element in the list bubble sort compares two
+     adjascent elements and swap if the first one is greater than the second.
+     After each iteration of the outer loop the greatest element will be placed
+     at the end of the sublist under consideration. Eg:- L = [5, 1, 7, 2, 6|].
+     Here the sublist right to the symbol are already sorted.
+     Step 1: key = 1, L = [1, 5, 2, 6, |7]
+     Step 2: key = 1, L = [1, 2, 5, |6, 7]
+     Step 3: key = 1, L = [1, 2, |5, 6, 7]
+     Step 4: key = 1, L = [1, |2, 5, 6, 7]
   """
 
   def __init__(self):
     self.SortedList = []
 
   def Sort(self, List):
+    N = len(List)
+    for I in range(0, N - 1):
+      for J in range(0, N - I - 1):
+        if List[J] > List[J + 1]:
+          # Swap
+          List[J], List[J + 1] = List[J + 1], List[J]
+
     self.SortedList = List
     return self.SortedList
   
