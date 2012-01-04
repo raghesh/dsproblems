@@ -42,7 +42,7 @@ class InsertSort(Sorting):
 
 class BubbleSort(Sorting):
   """Starting from the first element in the list bubble sort compares two
-     adjascent elements and swap if the first one is greater than the second.
+     adjacent elements and swap if the first one is greater than the second.
      After each iteration of the outer loop the greatest element will be placed
      at the end of the sublist under consideration. Eg:- L = [5, 1, 7, 2, 6|].
      Here the sublist right to the symbol are already sorted.
