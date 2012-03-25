@@ -54,6 +54,9 @@ class BubbleSort(Sorting):
 
   def __init__(self):
     self.SortedList = []
+    # This variable keeps the count of inversion lists. That is in a list A 
+    # with if i < j and A[i] > A[j] we increment this count.
+    self.InversionListCount = 0
 
   def Sort(self, List):
     N = len(List)
@@ -62,10 +65,68 @@ class BubbleSort(Sorting):
         if List[J] > List[J + 1]:
           # Swap
           List[J], List[J + 1] = List[J + 1], List[J]
+          self.InversionListCount += 1
 
     self.SortedList = List
     return self.SortedList
   
+  def GetInversionListCount(self):
+    return self.InversionListCount
+  
+  def getComplexity(self, N):
+    """Gets the time complexity of specified algorithm.
+    """
+
+class MergeSort(Sorting):
+
+  def __init__(self):
+    self.SortedList = []
+    # This variable keeps the count of inversion lists. That is in a list A 
+    # with if i < j and A[i] > A[j] we increment this count.
+    self.InversionListCount = 0
+
+  def Merge(self, L1, L2):
+    L = []
+    L_len = len(L1) + len(L2)
+
+    i = 0
+    j = 0
+    for k in range(L_len):
+      if i == len(L1) or j == len(L2):
+        break
+      if L1[i] < L2[j]:
+        L.append(L1[i])
+        i += 1
+      else:
+        L.append(L2[j])
+        j += 1
+        self.InversionListCount += len(L1[i:])
+    
+    if i == len(L1):
+      L.extend(L2[j:])
+      self.InversionListCount += len(L1[i:])
+    if j == len(L2):
+      L.extend(L1[i:])
+
+    return L
+
+  def MSort(self, List):
+    if len(List) == 0 or len(List) == 1:
+      return List
+    L1 = List[0:len(List) / 2]
+    L2 = List[len(List) / 2:len(List)]
+    L1 = self.MSort(L1)
+    L2 = self.MSort(L2)
+    L = self.Merge(L1, L2)
+    return L
+
+  def Sort(self, List):
+    self.SortedList = self.MSort(List)
+    return self.SortedList
+
+  def GetInversionListCount(self):
+    return self.InversionListCount
+
   def getComplexity(self, N):
     """Gets the time complexity of specified algorithm.
     """
