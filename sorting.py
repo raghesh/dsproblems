@@ -130,3 +130,54 @@ class MergeSort(Sorting):
   def getComplexity(self, N):
     """Gets the time complexity of specified algorithm.
     """
+
+class QuickSort(Sorting):
+
+  def __init__(self):
+    self.SortedList = []
+
+  def ChoosePivot(self, List):
+    """Returs the index of the pivot element."""
+    return 0
+
+  def Partition(self, List, PivotIndex):
+    """All elments to the left of pivot element are less than pivot and to the
+       right are greater than pivot. Returns the index of pivot element"""
+    Pivot = List[PivotIndex]
+    
+    GreatestElementIndex = PivotIndex
+    for Element in List:
+      if Element == Pivot:
+        GreatestElementIndex += 1
+      elif Element > Pivot:
+        GreatestElementIndex = List.index(Element)
+      elif Element < Pivot:
+        # Swap greatest element and current element.
+        ElementIndex = List.index(Element)
+        List[ElementIndex], List[GreatestElementIndex] = \
+        List[GreatestElementIndex], List[ElementIndex]
+        # Swap current element and pivot element
+        List[GreatestElementIndex], List[PivotIndex] = \
+        List[PivotIndex], List[GreatestElementIndex]
+        PivotIndex = GreatestElementIndex
+        GreatestElementIndex += 1
+      print List, PivotIndex, GreatestElementIndex
+    return PivotIndex
+
+  def QSort(self, List):
+    if len(List) == 1:
+      return List
+    # Pivot is the index of pivot element.
+    PivotIndex = self.ChoosePivot(List)
+    PivotIndex = self.Partition(List, PivotIndex)
+    self.QSort(List[:PivotIndex])
+    self.QSort(List[PivotIndex + 1:])
+    return List
+
+  def Sort(self, List):
+    self.SortedList = self.QSort(List)
+    return self.SortedList
+
+  def getComplexity(self, N):
+    """Gets the time complexity of specified algorithm.
+    """
