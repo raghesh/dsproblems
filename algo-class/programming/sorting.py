@@ -135,9 +135,33 @@ class QuickSort(Sorting):
 
   def __init__(self):
     self.SortedList = []
+    self.NumberOfComparisons = 0
 
-  def ChoosePivot(self, List, l, r):
-    """Returs the index of the pivot element."""
+  def ChoosePivot(self, List, l, r, PivotMethod):
+    """Returs the index of the pivot element according to the PivtoMethod."""
+    print PivotMethod
+    if PivotMethod == "First":
+       return l
+    if PivotMethod == "Final":
+      List[l], List[r - 1] =  List[r - 1], List[l]
+    if PivotMethod == "Median":
+      First = List[l]
+      Final = List[r - 1]
+      if (r - l) % 2 == 1:
+        MiddleIndex = l + (r - l) / 2
+        Middle = List[l + (r - l) / 2]
+      else:
+        MiddleIndex = l + (((r - l) / 2) - 1)
+        Middle = List[l + (((r - l) / 2) - 1)]
+
+      Median = sorted([First, Middle, Final])[1]
+      if Median == First:
+        return l
+      elif Median == Final:
+        List[l], List[r - 1] =  List[r - 1], List[l]
+      else:
+        List[l], List[MiddleIndex] =  List[MiddleIndex], List[l]
+      
     return l
 
   def Partition(self, List, PivotIndex, l, r):
@@ -155,18 +179,22 @@ class QuickSort(Sorting):
     PivotIndex = i - 1
     return PivotIndex
 
-  def QSort(self, List, l, r):
+  def QSort(self, List, l, r, PivotMethod):
     if l >= r:
       return
-    PivotIndex = self.ChoosePivot(List, l, r)
+    PivotIndex = self.ChoosePivot(List, l, r, PivotMethod)
+    self.NumberOfComparisons += (r - l - 1)
     PivotIndex = self.Partition(List, PivotIndex, l, r)
-    self.QSort(List, l, PivotIndex)
-    self.QSort(List, PivotIndex + 1, r)
+    self.QSort(List, l, PivotIndex, PivotMethod)
+    self.QSort(List, PivotIndex + 1, r, PivotMethod)
     # QuickSort is performing in place sorting. So no need to return anything.
     return
 
-  def Sort(self, List):
-    self.QSort(List, 0, len(List))
+  def getNumberOfComparisons(self):
+    return self.NumberOfComparisons
+  def Sort(self, List, PivotMethod = "First"):
+    self.NumberOfComparisons = 0
+    self.QSort(List, 0, len(List), PivotMethod)
     self.SortedList = List
     return self.SortedList
 
