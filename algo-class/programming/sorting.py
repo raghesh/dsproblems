@@ -130,3 +130,46 @@ class MergeSort(Sorting):
   def getComplexity(self, N):
     """Gets the time complexity of specified algorithm.
     """
+
+class QuickSort(Sorting):
+
+  def __init__(self):
+    self.SortedList = []
+
+  def ChoosePivot(self, List, l, r):
+    """Returs the index of the pivot element."""
+    return l
+
+  def Partition(self, List, PivotIndex, l, r):
+    """All elments to the left of pivot element are less than pivot and to the
+       right are greater than pivot. Returns the index of pivot element"""
+    p = List[PivotIndex]
+    i = l + 1
+    for j in range(l + 1, r):
+      if List[j] < p: # if List[j] >p, do nothing
+        List[i], List[j] = List[j], List[i]
+        i += 1
+
+    List[l], List[i - 1] = List[i - 1], List[l]
+
+    PivotIndex = i - 1
+    return PivotIndex
+
+  def QSort(self, List, l, r):
+    if l >= r:
+      return
+    PivotIndex = self.ChoosePivot(List, l, r)
+    PivotIndex = self.Partition(List, PivotIndex, l, r)
+    self.QSort(List, l, PivotIndex)
+    self.QSort(List, PivotIndex + 1, r)
+    # QuickSort is performing in place sorting. So no need to return anything.
+    return
+
+  def Sort(self, List):
+    self.QSort(List, 0, len(List))
+    self.SortedList = List
+    return self.SortedList
+
+  def getComplexity(self, N):
+    """Gets the time complexity of specified algorithm.
+    """
