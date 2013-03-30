@@ -136,46 +136,38 @@ class QuickSort(Sorting):
   def __init__(self):
     self.SortedList = []
 
-  def ChoosePivot(self, List):
+  def ChoosePivot(self, List, l, r):
     """Returs the index of the pivot element."""
-    return 0
+    return l
 
-  def Partition(self, List, PivotIndex):
+  def Partition(self, List, PivotIndex, l, r):
     """All elments to the left of pivot element are less than pivot and to the
        right are greater than pivot. Returns the index of pivot element"""
-    Pivot = List[PivotIndex]
-    
-    GreatestElementIndex = PivotIndex
-    for Element in List:
-      if Element == Pivot:
-        GreatestElementIndex += 1
-      elif Element > Pivot:
-        GreatestElementIndex = List.index(Element)
-      elif Element < Pivot:
-        # Swap greatest element and current element.
-        ElementIndex = List.index(Element)
-        List[ElementIndex], List[GreatestElementIndex] = \
-        List[GreatestElementIndex], List[ElementIndex]
-        # Swap current element and pivot element.
-        List[GreatestElementIndex], List[PivotIndex] = \
-        List[PivotIndex], List[GreatestElementIndex]
-        PivotIndex = GreatestElementIndex
-        GreatestElementIndex += 1
-      print List, PivotIndex, GreatestElementIndex
+    p = List[PivotIndex]
+    i = l + 1
+    for j in range(l + 1, r):
+      if List[j] < p: # if List[j] >p, do nothing
+        List[i], List[j] = List[j], List[i]
+        i += 1
+
+    List[l], List[i - 1] = List[i - 1], List[l]
+
+    PivotIndex = i - 1
     return PivotIndex
 
-  def QSort(self, List):
-    if len(List) <= 1:
-      return List
-    # Pivot is the index of pivot element.
-    PivotIndex = self.ChoosePivot(List)
-    PivotIndex = self.Partition(List, PivotIndex)
-    self.QSort(List[:PivotIndex])
-    self.QSort(List[PivotIndex + 1:])
-    return List
+  def QSort(self, List, l, r):
+    if l >= r:
+      return
+    PivotIndex = self.ChoosePivot(List, l, r)
+    PivotIndex = self.Partition(List, PivotIndex, l, r)
+    self.QSort(List, l, PivotIndex)
+    self.QSort(List, PivotIndex + 1, r)
+    # QuickSort is performing in place sorting. So no need to return anything.
+    return
 
   def Sort(self, List):
-    self.SortedList = self.QSort(List)
+    self.QSort(List, 0, len(List))
+    self.SortedList = List
     return self.SortedList
 
   def getComplexity(self, N):
